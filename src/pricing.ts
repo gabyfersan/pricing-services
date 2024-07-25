@@ -5,7 +5,13 @@ import { Customer, Service, Discount } from './types';
 
 const isWorkingDay = (date: string, serviceId: string) => {
   const day = moment(date).day(); // Sunday = 0, Saturday = 6
-  console.log(basePrices[serviceId].workingDay, serviceId, basePrices[serviceId].workingDay.includes(day), day);
+  // console.log(
+  //   'in function isWorkingDay',
+  //   basePrices[serviceId].workingDay,
+  //   serviceId,
+  //   basePrices[serviceId].workingDay.includes(day),
+  //   day,
+  // );
   return basePrices[serviceId].workingDay.includes(day);
 };
 
@@ -27,9 +33,39 @@ const calculateDiscountedPrice = (price: number, currentDate: moment.Moment, dis
   return discountPrice;
 };
 
+const calculatePriceDay = (
+  currentDate: moment.Moment,
+  serviceId: string,
+  freeDays: number,
+  service: Service,
+): [number, number] => {
+  let price = service.price;
+
+  const isServiceWorkingDay = isWorkingDay(currentDate.format('YYYY-MM-DD'), serviceId);
+  if (!isServiceWorkingDay) {
+    console.log('!isServiceWorkingDay', !isServiceWorkingDay);
+    return [0, freeDays];
+  }
+  if (freeDays > 0) {
+    console.log('freeDays', freeDays);
+    //freeDays--;
+    return [0, freeDays - 1];
+  }
+
+  //console.log("service.discounts",service.discounts)
+  if (service.discounts) {
+    service.discounts.forEach((discount: Discount) => {
+      price = calculateDiscountedPrice(price, currentDate, discount);
+    });
+
+    console.log('price', price);
+  }
+  return [price, freeDays];
+};
 export const calculatePrice = (customerId: string, startDate: string, endDate: string) => {
   const customer: Customer = customers[customerId];
   if (!customer) throw new Error('Customer not found');
+  let price;
 
   let totalPrice = 0;
   let freeDays = customer.freeDays;
@@ -39,25 +75,10 @@ export const calculatePrice = (customerId: string, startDate: string, endDate: s
     let currentDate = moment(startDate);
     const end = moment(endDate);
     //console.log("serviceId",serviceId)
-    console.log("service",service)
+    //console.log("service",service)
     while (currentDate <= end) {
-      //   const isServiceWorkingDay = isWorkingDay(currentDate.format('YYYY-MM-DD'), serviceId);
-      //   if (!isServiceWorkingDay) {
-      //     return;
-      //   }
-    //   if (freeDays > 0) {
-    //     console.log('freeDays', freeDays);
-    //     freeDays--;
-    //     return;
-    //   }
-      let price = service.price;
-      //console.log("service.discounts",service.discounts)
-      if (service.discounts) {
-        service.discounts.forEach((discount) => {
-          price = calculateDiscountedPrice(price, currentDate, discount);
-        });
-        //console.log("price",price)
-      }
+      [price, freeDays] = calculatePriceDay(currentDate, serviceId, freeDays, service);
+      //console.log("[price, freeDays]",price, freeDays)
       totalPrice += price;
       currentDate.add(1, 'days');
     }
