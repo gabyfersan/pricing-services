@@ -1,4 +1,9 @@
-// src/types.ts
+export interface PriceCalculationRequest {
+  customerId: string;
+  startDate: string;
+  endDate: string;
+}
+
 export interface Discount {
   start?: string;
   end?: string;
@@ -9,6 +14,7 @@ export interface Service {
   startDate: string;
   price: number;
   discounts?: Discount[];
+  discount?: number;
 }
 
 export interface Customer {

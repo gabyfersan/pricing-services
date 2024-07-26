@@ -1,6 +1,6 @@
 // pricing.js
 import moment from 'moment';
-import { customers, basePrices } from './customers';
+import { customers, basePrices } from './data';
 import { Customer, Service, Discount } from './types';
 
 const isWorkingDay = (date: string, serviceId: string) => {
