@@ -5,14 +5,14 @@ export interface PriceCalculationRequest {
 }
 
 export interface Discount {
-  start?: string;
-  end?: string;
+  startDateDiscount?: string;
+  endDateDiscount?: string
   discount: number;
 }
 
 export interface Service {
-  startDate: string;
-  price: number;
+  startDateForService: string;
+  price?: number;
   discounts?: Discount[];
   discount?: number;
 }
