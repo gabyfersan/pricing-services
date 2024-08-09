@@ -4,8 +4,6 @@ import { calculatePrice } from './pricing';
 import { PriceCalculationRequest } from './types';
 
 Deno.serve(async (req: Request) => {
-  //return new Response("Hello, world!");
-
   const url = new URL(req.url);
 
   if (url.pathname === '/calculate-price' && req.method === 'GET') {
