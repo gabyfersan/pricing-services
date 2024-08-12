@@ -37,7 +37,7 @@ export function validateInputs(request: PriceCalculationRequest) {
     return false;
   }
 
-  if (dateRegex.test(startDate) < dateRegex.test(endDate)) {
+  if (dateRegex.test(startDate) < dateRegex.test(endDate)) { // Startdate  must be realier or the same days as enddate
     return false;
   }
 

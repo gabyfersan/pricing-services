@@ -24,7 +24,7 @@ Deno.serve(async (req: Request) => {
 
     if (!doesCustomerExist(customerId)) {
       return new Response(JSON.stringify({ error: 'Customer Not Found' }), {
-        status: 404,
+        status: 401,
       });
     }
 
