@@ -1,3 +1,4 @@
+import { allDaysAreWorkingDay, onlyWeekDaysAreWorkingDay } from '../utils/utils';
 import { BasePrices, Customers } from './types';
 
 export const customers: Customers = {
@@ -219,20 +220,11 @@ export const customers: Customers = {
 //     },
 // };
 
-enum Week {
-  Monday = 1,
-  Tuesday = 2,
-  Wednesday = 3,
-  Thursday = 4,
-  Friday = 5,
-  Saturday = 6,
-  Sunday = 0,
-}
 export const basePrices: BasePrices = {
-  A: { workingDay: [Week.Monday, Week.Tuesday, Week.Wednesday, Week.Thursday, Week.Friday], price: 0.2 },
-  B: { workingDay: [Week.Monday, Week.Tuesday, Week.Wednesday, Week.Thursday, Week.Friday], price: 0.24 },
+  A: { workingDay: onlyWeekDaysAreWorkingDay, price: 0.2 },
+  B: { workingDay: onlyWeekDaysAreWorkingDay, price: 0.24 },
   C: {
-    workingDay: [Week.Monday, Week.Tuesday, Week.Wednesday, Week.Thursday, Week.Friday, Week.Saturday, Week.Sunday],
+    workingDay: allDaysAreWorkingDay,
     price: 0.4,
   },
 };
