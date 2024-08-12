@@ -16,5 +16,5 @@ This project was created using `bun init` in bun v1.1.17. [Bun](https://bun.sh) 
 
 The API inludes all days e.i the first and last days
 
-http://localhost:8000/calculate-price?customerId=X&startDate=2019-09-20&endDate=2019-10-01
-http://localhost:3000/calculate-price?customerId=X&start=2019-09-20&end=2019-10-01
+http://localhost:8000/price?customerId=X&startDate=2019-09-20&endDate=2019-10-01
+http://localhost:3000/price?customerId=X&start=2019-09-20&end=2019-10-01

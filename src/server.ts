@@ -6,7 +6,7 @@ import { PriceCalculationRequest } from './types';
 Deno.serve(async (req: Request) => {
   const url = new URL(req.url);
 
-  if (url.pathname === '/calculate-price' && req.method === 'GET') {
+  if (url.pathname === '/price' && req.method === 'GET') {
     const customerId = url.searchParams.get('customerId') ?? '';
     const startDate = url.searchParams.get('startDate') ?? '';
     const endDate = url.searchParams.get('endDate') ?? '';
