@@ -28,5 +28,9 @@ export function validateInputs(request: PriceCalculationRequest) {
     return false;
   }
 
+  if (!moment(startDate, moment.ISO_8601, true).isValid() || !moment(endDate, moment.ISO_8601, true).isValid()) {
+    return false;
+  }
+
   return true;
 }

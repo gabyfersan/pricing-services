@@ -219,8 +219,20 @@ export const customers: Customers = {
 //     },
 // };
 
+enum Week {
+  Monday = 1,
+  Tuesday = 2,
+  Wednesday = 3,
+  Thursday = 4,
+  Friday = 5,
+  Saturday = 6,
+  Sunday = 0,
+}
 export const basePrices: BasePrices = {
-  A: { workingDay: [1, 2, 3, 4, 5], price: 0.2 },
-  B: { workingDay: [1, 2, 3, 4, 5], price: 0.24 },
-  C: { workingDay: [1, 2, 3, 4, 5, 6, 0], price: 0.4 },
+  A: { workingDay: [Week.Monday, Week.Tuesday, Week.Wednesday, Week.Thursday, Week.Friday], price: 0.2 },
+  B: { workingDay: [Week.Monday, Week.Tuesday, Week.Wednesday, Week.Thursday, Week.Friday], price: 0.24 },
+  C: {
+    workingDay: [Week.Monday, Week.Tuesday, Week.Wednesday, Week.Thursday, Week.Friday, Week.Saturday, Week.Sunday],
+    price: 0.4,
+  },
 };

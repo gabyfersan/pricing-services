@@ -3,7 +3,7 @@ import { isWorkingDay } from '../utils/utils';
 import { basePrices, customers } from './data';
 import { Customer, Discount, Service } from './types';
 
-const calculateDiscountedPrice = (price: number, currentDate: moment.Moment, discount: Discount) => {
+export const calculateDiscountedPrice = (price: number, currentDate: moment.Moment, discount: Discount) => {
   let discountPrice = price;
   const discountStart = moment(discount.startDateDiscount);
   const discountEnd = moment(discount.endDateDiscount);
@@ -27,11 +27,11 @@ const calculatePriceDay = (
 
   const isServiceWorkingDay = isWorkingDay(currentDate.format('YYYY-MM-DD'), basePrices[serviceId].workingDay);
   if (!isServiceWorkingDay) {
-    console.log('Weekend ', serviceId, 0);
+    //console.log('Weekend ', serviceId, 0);
     return [0, freeDays];
   }
   if (freeDays > 0) {
-    console.log('freeDays', serviceId, 0, '---', freeDays);
+    // console.log('freeDays', serviceId, 0, '---', freeDays);
     return [0, freeDays - 1];
   }
 
@@ -41,11 +41,11 @@ const calculatePriceDay = (
     });
   }
 
-  if (price !== (service.price || basePrices[serviceId].price)) {
-    console.log('discount', serviceId, price);
-  } else {
-    console.log('Normal  ', serviceId, price);
-  }
+  // if (price !== (service.price || basePrices[serviceId].price)) {
+  //   console.log('discount', serviceId, price);
+  // } else {
+  //   console.log('Normal  ', serviceId, price);
+  // }
 
   return [price, freeDays];
 };
@@ -74,7 +74,7 @@ export const calculateTotalPrice = (
       totalPrice = (totalPrice * 1000 + price * 1000) / 1000;
       currentDate.add(1, 'days');
     }
-    console.log('-------------------');
+    //console.log('-------------------');
   }
   return totalPrice;
 };

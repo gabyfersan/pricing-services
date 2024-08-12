@@ -16,7 +16,6 @@ Deno.serve(async (req: Request) => {
       startDate,
       endDate,
     };
-    console.log('customerId', customerId, startDate, endDate);
     if (!validateInputs(request)) {
       return new Response(JSON.stringify({ error: 'Invalid input' }), {
         status: 400,
@@ -33,10 +32,13 @@ Deno.serve(async (req: Request) => {
       const price = await calculatePrice(request.customerId, request.startDate, request.endDate);
       return new Response(JSON.stringify({ price }), { status: 200 });
     } catch (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 500,
-      });
+      return new Response(
+        JSON.stringify({
+          error: error instanceof Error ? error.message : 'An unknown error occurred',
+        }),
+        { status: 500 },
+      );
     }
   }
-  return new Response('Not Found fd' + url, { status: 404 });
+  return new Response('Not Found ' + url, { status: 404 });
 });
