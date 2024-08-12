@@ -3,6 +3,24 @@ import { doesCustomerExist } from './customer';
 import { calculatePrice } from './pricing';
 import { PriceCalculationRequest } from './types';
 
+// const options = {
+//   certFile: '../certification/cert.pem', // Path to your certificate file
+//   keyFile: '../certification/key.pem', // Path to your private key file
+//   port: 443, // Default HTTPS port
+// };
+
+// const server = Deno.L({
+//   hostname: '0.0.0.0', // Listen on all available interfaces
+//   port: options.port,
+//   certFile: options.certFile,
+//   keyFile: options.keyFile,
+// });
+
+//console.log(`HTTPS web server running on https://localhost:${options.port}/`);
+
+// for await (const conn of server) {
+//   serve(handler, { conn, httpConn: Deno.serveHttp(conn) });
+// }
 Deno.serve(async (req: Request) => {
   const url = new URL(req.url);
 
