@@ -44,7 +44,7 @@ describe('validateInputs', () => {
 
   it('should return false for empty date', () => {
     const request: PriceCalculationRequest = {
-      customerId: 'a',
+      customerId: 'X',
       startDate: '',
       endDate: '2023-01-31',
     };
@@ -54,7 +54,7 @@ describe('validateInputs', () => {
 
   it('should return false when start date is after end date', () => {
     const request: PriceCalculationRequest = {
-      customerId: '',
+      customerId: 'X',
       startDate: '2023-01-31',
       endDate: '2023-01-01',
     };

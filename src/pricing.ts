@@ -27,11 +27,9 @@ const calculatePriceDay = (
 
   const isServiceWorkingDay = isWorkingDay(currentDate.format('YYYY-MM-DD'), basePrices[serviceId].workingDay);
   if (!isServiceWorkingDay) {
-    //console.log('Weekend ', serviceId, 0);
     return [0, freeDays];
   }
   if (freeDays > 0) {
-    // console.log('freeDays', serviceId, 0, '---', freeDays);
     return [0, freeDays - 1];
   }
 
@@ -40,12 +38,6 @@ const calculatePriceDay = (
       price = calculateDiscountedPrice(price, currentDate, discount);
     });
   }
-
-  // if (price !== (service.price || basePrices[serviceId].price)) {
-  //   console.log('discount', serviceId, price);
-  // } else {
-  //   console.log('Normal  ', serviceId, price);
-  // }
 
   return [price, freeDays];
 };
@@ -74,7 +66,6 @@ export const calculateTotalPrice = (
       totalPrice = (totalPrice * 1000 + price * 1000) / 1000;
       currentDate.add(1, 'days');
     }
-    //console.log('-------------------');
   }
   return totalPrice;
 };
