@@ -1,28 +1,47 @@
 # pricing-service
 
+Install bun
+
+```bash
+curl -fsSL https://bun.sh/install | bash
+
+exec /bin/zsh
+bun run src/server.ts d
+```
+
 To install dependencies:
 
 ```bash
 bun install
 ```
 
-To run:
+Remove bun
 
 ```bash
-bun run index.ts
+rm -rf ~/.bun
 ```
 
-curl -fsSL https://bun.sh/install | bash
+To run:
 
-exec /bin/zsh
+Server
+
+```bash
 bun run src/server.ts
+```
+
+Test
+
+```bash
+bun run test
+```
 
 This project was created using `bun init` in bun v1.1.17. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
 
-The API includes all days within the specified date range, including the start and end dates.
-
 Endpoint
 The API provides a single endpoint: /price.
+
+The API returns the price of the services that the user specifies.
+The price is calculated to include all days within the specified date range, including the start and end dates.
 
 Parameters
 customerId - The ID of the customer for whom the price is being calculated.
