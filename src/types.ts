@@ -41,3 +41,8 @@ export interface ServerConfig {
   doesCustomerExist: (customerId: string) => boolean;
   calculatePrice: (customerId: string, startDate: string, endDate: string) => void;
 }
+
+export interface Request {
+  url: string;
+  method: string;
+}

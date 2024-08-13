@@ -2,7 +2,7 @@ import { serve, TLSOptions } from 'bun';
 import { validateInputs } from '../utils/utils';
 import { doesCustomerExist } from './customer';
 import { calculatePrice } from './pricing';
-import { PriceCalculationRequest, ServerConfig } from './types';
+import { PriceCalculationRequest, ServerConfig, Request } from './types';
 import { sanitizeObject } from '../utils/sanitize';
 
 const tlsOptions: TLSOptions = {
@@ -14,7 +14,7 @@ const createServer = ({ port, tlsOptions, validateInputs, doesCustomerExist, cal
   return serve({
     port,
     tls: tlsOptions,
-    async fetch(req) {
+    async fetch(req: Request) {
       const url = new URL(req.url);
 
       if (url.pathname === '/price' && req.method === 'GET') {

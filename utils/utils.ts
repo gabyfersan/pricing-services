@@ -29,24 +29,22 @@ export const isWorkingDay = (date: string, workingDay: Array<number>) => {
 
 export function validateInputs(request: PriceCalculationRequest) {
   const customerIdRegex = /^[A-Z]$/;
-
   const { customerId, startDate, endDate } = request;
 
   if (!customerId || !startDate || !endDate) {
     return false;
   }
 
+  // Check format of date is YYYY-MM-D, Check that it is a valid date ex != 2023-02-44
   if (
-    // Check format of date is YYYY-MM-D, Check that it is a valid date ex != 2023-02-44
     !moment(startDate, moment.HTML5_FMT.DATE, true).isValid() ||
     !moment(endDate, moment.HTML5_FMT.DATE, true).isValid()
   ) {
     return false;
   }
 
+  // Startdate  must be realier or the same days as enddate
   if (!moment(startDate).isBefore(endDate)) {
-    // Startdate  must be realier or the same days as enddate
-
     return false;
   }
 
