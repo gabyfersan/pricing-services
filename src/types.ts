@@ -1,3 +1,5 @@
+import { TLSOptions } from 'bun';
+
 export interface PriceCalculationRequest {
   customerId: string;
   startDate: string;
@@ -7,7 +9,7 @@ export interface PriceCalculationRequest {
 export interface Discount {
   discount: number;
   startDateDiscount?: string;
-  endDateDiscount?: string
+  endDateDiscount?: string;
 }
 
 export interface Service {
@@ -30,4 +32,12 @@ export interface Customers {
 
 export interface BasePrices {
   [key: string]: { workingDay: number[]; price: number };
+}
+
+export interface ServerConfig {
+  port: number;
+  tlsOptions: TLSOptions;
+  validateInputs: (request: PriceCalculationRequest) => boolean;
+  doesCustomerExist: (customerId: string) => boolean;
+  calculatePrice: (customerId: string, startDate: string, endDate: string) => void;
 }
