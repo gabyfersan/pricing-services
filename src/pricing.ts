@@ -7,9 +7,13 @@ export const calculateDiscountedPrice = (price: number, currentDate: moment.Mome
   let discountPrice = price;
   const discountStart = moment(discount.startDateDiscount);
   const discountEnd = moment(discount.endDateDiscount);
-  if (discount.startDateDiscount === undefined || (currentDate >= discountStart && currentDate <= discountEnd)) {
+  if (
+    !discount.startDateDiscount ||
+    (currentDate.isSameOrAfter(discountStart) && currentDate.isSameOrBefore(discountEnd))
+  ) {
     discountPrice = (price * 1000 * (1 - discount.discount)) / 1000;
   }
+
   return discountPrice;
 };
 
@@ -21,7 +25,7 @@ const calculatePriceDay = (
 ): [number, number] => {
   let price = service.price || basePrices[serviceId].price;
 
-  if (currentDate < moment(service.startDateForService)) {
+  if (currentDate.isBefore(moment(service.startDateForService))) {
     return [0, freeDays];
   }
 
@@ -61,7 +65,7 @@ export const calculateTotalPrice = (
     let freeDaysInLoop = freeDays;
     let currentDate = moment(startDate);
     const end = moment(endDate);
-    while (currentDate <= end) {
+    while (currentDate.isSameOrBefore(end)) {
       [price, freeDaysInLoop] = calculatePriceDay(currentDate, serviceId, freeDaysInLoop, service);
       totalPrice = (totalPrice * 1000 + price * 1000) / 1000;
       currentDate.add(1, 'days');
