@@ -3,6 +3,7 @@ import { validateInputs } from '../utils/utils';
 import { doesCustomerExist } from './customer';
 import { calculatePrice } from './pricing';
 import { PriceCalculationRequest, ServerConfig } from './types';
+import { sanitizeObject } from '../utils/sanitize';
 
 const tlsOptions: TLSOptions = {
   certFile: 'certification/cert.pem', // Path to your certificate file
@@ -21,10 +22,12 @@ const createServer = ({ port, tlsOptions, validateInputs, doesCustomerExist, cal
         const startDate = url.searchParams.get('startDate') ?? '';
         const endDate = url.searchParams.get('endDate') ?? '';
 
+        const sanitizedInputs = sanitizeObject({ customerId, startDate, endDate });
+
         const request: PriceCalculationRequest = {
-          customerId,
-          startDate,
-          endDate,
+          customerId: sanitizedInputs.customerId,
+          startDate: sanitizedInputs.startDate,
+          endDate: sanitizedInputs.endDate,
         };
 
         if (!validateInputs(request)) {
@@ -33,7 +36,7 @@ const createServer = ({ port, tlsOptions, validateInputs, doesCustomerExist, cal
           });
         }
 
-        if (!doesCustomerExist(customerId)) {
+        if (!doesCustomerExist(request.customerId)) {
           return new Response(JSON.stringify({ error: 'Customer Not Found' }), { status: 401 });
         }
 
